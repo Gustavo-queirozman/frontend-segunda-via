@@ -1,7 +1,7 @@
 import React from "react";
 
 function FormField(props) {
-    <div className="mt-8 mx-24">
+    return (<div className="mt-8 mx-24">
         <label className="text-cinza text-sm">{props.label}:</label>
         <input
             type={props.type}
@@ -11,7 +11,7 @@ function FormField(props) {
             onChange={props.handleChange}
             value={props.value}
         />
-    </div>
+    </div>);
 }
 
 export default FormField;
