@@ -10,6 +10,7 @@ function FormField(props) {
             className="px-1 appearance-none block min-w-full py-4 leading-tight text-cinza bg-none outline-none border-b-2 border-cinza-70 hover:border-cinza delay-75"
             onChange={props.handleChange}
             value={props.value}
+            required
         />
     </div>);
 }
