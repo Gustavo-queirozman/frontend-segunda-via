@@ -1,69 +1,115 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
+import qs from 'qs';
 import FormField from "../../components/FormField/Index";
+import Header from "../../components/Header/Index";
 
 function Cadastrar(props) {
-    return (
-        <div className="min-h-screen  bg-white flex ">
-            <div className="flex-1 p-4">
-                <div className="mx-auto w-full max-w-sm">
-                    <div className="flex justify-center h-auto mx-auto ">
-                        <img src="Logo.png" alt="" className="h-28 mt-14 bottom-10" />
-                    </div>
-                </div>
+  const [formData, setFormData] = useState({
+    name: 'Gustavo Queiroz',
+    cnp: '02013885610',
+    email: 'gustavoqueiroz071@gmail.com',
+    password: '12345678',
+    c_password: '12345678'
+  });
 
-                <div className="mt-2">
-                    <form>
-                        <FormField
-                            label="Cnp"
-                            type="cnp"
-                            name="cnp"
-                            placeholder=""
-                            onChange=""
-                            value=""
-                        />
+  const [response, setResponse] = useState(null);
+  const [error, setError] = useState(null);
 
-                        <FormField
-                            label="Email"
-                            type="email"
-                            name="email"
-                            placeholder=""
-                            onChange=""
-                            value=""
-                        />
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
 
-                        <FormField
-                            label="Senha"
-                            type="password"
-                            name="password"
-                            placeholder=""
-                            onChange=""
-                            value=""
-                        />
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const data = qs.stringify(formData);
 
-                        <FormField
-                            label="Confirmar senha"
-                            type="text"
-                            name="c_password"
-                            placeholder=""
-                            onChange=""
-                            value=""
-                        />
+    const config = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: 'http://192.168.0.159:80/api/register', // Ensure the URL includes http://
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Accept-Encoding': 'application/json',
+        'Cookie': 'unimed_session=teInqjWeutUdOfWboEFn1dO6saHjLopXEJxmzb0t'
+      },
+      data: data
+    };
 
-                        <div className="mt-11 mx-24">
-                            <button className="bg-secundaria text-white px-3 appearance-none block min-w-full py-4 leading-tight rounded-full transition ease-in-out delay-150 bg-secundaria-500 hover:-translate-y-1 hover:scale-100 hover:bg-primaria duration-300"
-                                onClick={(e) => handleSubmit(e)}>
-                                Entrar
-                            </button>
-                        </div>
-                    </form>
-                </div>
+    try {
+      const response = await axios.request(config);
+      setResponse(response.data);
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-white flex">
+      <div className="flex-1 p-4">
+        <Header />
+        <div className="mt-2">
+          <form onSubmit={handleSubmit}>
+            <FormField
+              label="Nome"
+              type="text"
+              name="name"
+              placeholder=""
+              onChange={handleChange}
+              value={formData.name}
+            />
+            <FormField
+              label="Cnp"
+              type="text"
+              name="cnp"
+              placeholder=""
+              onChange={handleChange}
+              value={formData.cnp}
+            />
+            <FormField
+              label="Email"
+              type="email"
+              name="email"
+              placeholder=""
+              onChange={handleChange}
+              value={formData.email}
+            />
+            <FormField
+              label="Senha"
+              type="password"
+              name="password"
+              placeholder=""
+              onChange={handleChange}
+              value={formData.password}
+            />
+            <FormField
+              label="Confirmar senha"
+              type="password"
+              name="c_password"
+              placeholder=""
+              onChange={handleChange}
+              value={formData.c_password}
+            />
+            <div className="mt-11 mx-24">
+              <button
+                type="submit"
+                className="bg-green-800 text-white px-3 appearance-none block min-w-full py-4 leading-tight rounded-full transition ease-in-out delay-150 bg-secundaria-500 hover:-translate-y-1 hover:scale-100 hover:bg-primaria duration-300"
+              >
+                Cadastrar
+              </button>
             </div>
-
-            <div
-                className="hidden sm:block relative flex-1 p-4 bg-cover bg-[url('capa.jpg')]"
-            ></div>
+          </form>
+          {response && <div>Response: {JSON.stringify(response)}</div>}
+          {error && <div>Error: {error}</div>}
         </div>
-    );
+      </div>
+      <div className="hidden sm:block relative flex-1 p-4 bg-cover bg-[url('capa.jpg')]"></div>
+    </div>
+  );
 }
 
 export default Cadastrar;
