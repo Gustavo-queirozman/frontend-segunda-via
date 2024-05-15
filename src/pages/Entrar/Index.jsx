@@ -7,11 +7,7 @@ function Entrar() {
     return (
         <div className="min-h-screen  bg-white flex ">
             <div className="flex-1 p-4">
-                <div className="mx-auto w-full max-w-sm">
-                    <div className="flex justify-center h-auto mx-auto ">
-                        <img src="Logo.png" alt="" className="h-28 mt-14 bottom-10" />
-                    </div>
-                </div>
+                <Header/>
 
                 <div className="mt-2">
                     <form>
