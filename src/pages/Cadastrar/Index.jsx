@@ -7,7 +7,7 @@ import Header from "../../components/Header/Index";
 function Cadastrar(props) {
   const [formData, setFormData] = useState({
     name: 'Gustavo Queiroz',
-    cnp: '02013885610',
+    cnp: '33631641000101',
     email: 'gustavoqueiroz071@gmail.com',
     password: '12345678',
     c_password: '12345678'
