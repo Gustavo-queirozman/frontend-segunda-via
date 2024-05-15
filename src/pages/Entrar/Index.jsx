@@ -3,12 +3,8 @@ import FormField from "../../components/FormField/Index";
 import Button from "../../components/Button/Index";
 
 function Entrar() {
-    const style = {
-        backgroundImage: "url('CapaUnm.jpg')",
-    };
 
     return (
-
         <div className="min-h-screen  bg-white flex ">
             <div className="flex-1 p-4">
                 <div className="mx-auto w-full max-w-sm">
@@ -48,11 +44,9 @@ function Entrar() {
             </div>
 
             <div
-                className="hidden sm:block relative flex-1 p-4 bg-cover"
-                style={style}
+                className="hidden sm:block relative flex-1 p-4 bg-cover bg-[url('capa.jpg')]"
             ></div>
         </div>
-
     );
 }
 export default Entrar;
