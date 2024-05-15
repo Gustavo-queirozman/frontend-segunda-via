@@ -9,7 +9,7 @@ function App() {
 
   return (
     <div class="App">
-        <ModificarSenha/>
+        <Entrar/>
     </div>
   )
 }
