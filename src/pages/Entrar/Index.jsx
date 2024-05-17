@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import qs from 'qs';
-import FormField from '../../components/FormField/Index';
 import Button from '../../components/Button/Index';
 import Header from '../../components/Header/Index';
 
@@ -44,23 +43,31 @@ function Entrar() {
         <Header />
         <div className="mt-2">
           <form onSubmit={handleSubmit}>
-            <FormField
-              label="Cnp"
-              type="text"
-              name="cnp"
-              placeholder=""
-              onChange={(e) => setCnp(e.target.value)}
-              value={cnp}
-            />
+          <div className="mt-8 mx-24">
+              <label className="text-cinza text-sm">Cnp:</label>
+              <input
+                type="text"
+                name="cnp"
+                placeholder=""
+                className="px-1 appearance-none block min-w-full py-4 leading-tight text-cinza bg-none outline-none border-b-2 border-cinza-70 hover:border-cinza delay-75"
+                onChange={(e) => setCnp(e.target.value)}
+                value={cnp}
 
-            <FormField
-              label="Senha"
-              type="password"
-              name="password"
-              placeholder=""
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-            />
+              />
+            </div>
+
+            <div className="mt-8 mx-24">
+              <label className="text-cinza text-sm">Senha:</label>
+              <input
+                type="password"
+                name="password"
+                placeholder=""
+                className="px-1 appearance-none block min-w-full py-4 leading-tight text-cinza bg-none outline-none border-b-2 border-cinza-70 hover:border-cinza delay-75"
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
+
+              />
+            </div>
 
             <div className="mt-11 mx-24">
               <button
