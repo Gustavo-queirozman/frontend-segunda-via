@@ -1,115 +1,131 @@
 import React, { useState } from "react";
+import Header from '../../components/Header/Index';
 import axios from "axios";
-import qs from 'qs';
-import FormField from "../../components/FormField/Index";
-import Header from "../../components/Header/Index";
 
-function Cadastrar(props) {
-  const [formData, setFormData] = useState({
-    name: 'Gustavo Queiroz',
-    cnp: '33631641000101',
-    email: 'gustavoqueiroz071@gmail.com',
-    password: '12345678',
-    c_password: '12345678'
-  });
-
-  const [response, setResponse] = useState(null);
-  const [error, setError] = useState(null);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value
-    });
-  };
+function Cadastrar() {
+  const [name, setName] = useState('');
+  const [cnp, setCnp] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [c_password, setConfirmarSenha] = useState('');
+  const [response, setResponse] = useState(null); // Estado para resposta do servidor
+  const [error, setError] = useState(null); // Estado para erro]
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = qs.stringify(formData);
 
-    const config = {
-      method: 'post',
+    let config = {
+      method: 'POST',
       maxBodyLength: Infinity,
-      url: 'http://192.168.0.159:80/api/register', // Ensure the URL includes http://
+      url: 'http://192.168.0.159:80/api/register',
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Accept-Encoding': 'application/json',
-        'Cookie': 'unimed_session=teInqjWeutUdOfWboEFn1dO6saHjLopXEJxmzb0t'
+        'Content-Type': 'application/x-www-form-urlencoded'
       },
-      data: data
+      data: {
+        'name': name,
+        'cnp': cnp,
+        'email': email,
+        'password': password,
+        'c_password': c_password
+      }
     };
 
-    try {
-      const response = await axios.request(config);
-      setResponse(response.data);
-    } catch (error) {
-      setError(error.message);
-    }
-  };
+    axios.request(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
 
   return (
-    <div className="min-h-screen bg-white flex">
+    <div className="min-h-screen  bg-white flex ">
       <div className="flex-1 p-4">
         <Header />
+
         <div className="mt-2">
           <form onSubmit={handleSubmit}>
-            <FormField
-              label="Nome"
-              type="text"
-              name="name"
-              placeholder=""
-              onChange={handleChange}
-              value={formData.name}
-            />
-            <FormField
-              label="Cnp"
-              type="text"
-              name="cnp"
-              placeholder=""
-              onChange={handleChange}
-              value={formData.cnp}
-            />
-            <FormField
-              label="Email"
-              type="email"
-              name="email"
-              placeholder=""
-              onChange={handleChange}
-              value={formData.email}
-            />
-            <FormField
-              label="Senha"
-              type="password"
-              name="password"
-              placeholder=""
-              onChange={handleChange}
-              value={formData.password}
-            />
-            <FormField
-              label="Confirmar senha"
-              type="password"
-              name="c_password"
-              placeholder=""
-              onChange={handleChange}
-              value={formData.c_password}
-            />
+            <div className="mt-8 mx-24">
+              <label className="text-cinza text-sm">Nome:</label>
+              <input
+                type="text"
+                name="name"
+                placeholder=""
+                className="px-1 appearance-none block min-w-full py-4 leading-tight text-cinza bg-none outline-none border-b-2 border-cinza-70 hover:border-cinza delay-75"
+                onChange={(e) => setName(e.target.value)}
+                value={name}
+
+              />
+            </div>
+
+            <div className="mt-8 mx-24">
+              <label className="text-cinza text-sm">Cnp:</label>
+              <input
+                type="text"
+                name="cnp"
+                placeholder=""
+                className="px-1 appearance-none block min-w-full py-4 leading-tight text-cinza bg-none outline-none border-b-2 border-cinza-70 hover:border-cinza delay-75"
+                onChange={(e) => setCnp(e.target.value)}
+                value={cnp}
+
+              />
+            </div>
+
+            <div className="mt-8 mx-24">
+              <label className="text-cinza text-sm">Email:</label>
+              <input
+                type="text"
+                name="email"
+                placeholder=""
+                className="px-1 appearance-none block min-w-full py-4 leading-tight text-cinza bg-none outline-none border-b-2 border-cinza-70 hover:border-cinza delay-75"
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+
+              />
+            </div>
+
+            <div className="mt-8 mx-24">
+              <label className="text-cinza text-sm">Senha:</label>
+              <input
+                type="password"
+                name="password"
+                placeholder=""
+                className="px-1 appearance-none block min-w-full py-4 leading-tight text-cinza bg-none outline-none border-b-2 border-cinza-70 hover:border-cinza delay-75"
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
+              />
+            </div>
+
+            <div className="mt-8 mx-24">
+              <label className="text-cinza text-sm">Confirmar senha:</label>
+              <input
+                type="password"
+                name="c_password"
+                placeholder=""
+                className="px-1 appearance-none block min-w-full py-4 leading-tight text-cinza bg-none outline-none border-b-2 border-cinza-70 hover:border-cinza delay-75"
+                onChange={(e) => setConfirmarSenha(e.target.value)}
+                value={c_password}
+              />
+            </div>
+
             <div className="mt-11 mx-24">
-              <button
-                type="submit"
-                className="bg-green-800 text-white px-3 appearance-none block min-w-full py-4 leading-tight rounded-full transition ease-in-out delay-150 bg-secundaria-500 hover:-translate-y-1 hover:scale-100 hover:bg-primaria duration-300"
-              >
-                Cadastrar
+              <button className="bg-green-800 text-white px-3 appearance-none block min-w-full py-4 leading-tight rounded-full transition ease-in-out delay-150 bg-secundaria-500 hover:-translate-y-1 hover:scale-100 hover:bg-primaria duration-300">
+                Entrar
               </button>
             </div>
           </form>
-          {response && <div>Response: {JSON.stringify(response)}</div>}
-          {error && <div>Error: {error}</div>}
         </div>
       </div>
-      <div className="hidden sm:block relative flex-1 p-4 bg-cover bg-[url('capa.jpg')]"></div>
+
+      <div
+        className="hidden sm:block relative flex-1 p-4 bg-cover bg-[url('capa.jpg')]"
+      ></div>
     </div>
+
   );
+
 }
 
 export default Cadastrar;
