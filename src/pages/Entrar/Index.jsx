@@ -5,8 +5,8 @@ import Button from '../../components/Button/Index';
 import Header from '../../components/Header/Index';
 
 function Entrar() {
-  const [cnp, setCnp] = useState('02013885610');
-  const [password, setPassword] = useState('12345678');
+  const [cnp, setCnp] = useState('');
+  const [password, setPassword] = useState('');
   const [response, setResponse] = useState(null);
   const [error, setError] = useState(null);
 
