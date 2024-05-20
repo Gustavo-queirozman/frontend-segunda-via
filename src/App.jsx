@@ -10,7 +10,7 @@ function App() {
 
   return (
     <div class="App">
-        <Cadastrar/>
+        <EsqueciMinhaSenha/>
     </div>
   )
 }
