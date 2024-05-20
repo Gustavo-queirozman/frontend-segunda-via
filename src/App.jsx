@@ -10,7 +10,8 @@ function App() {
 
   return (
     <div class="App">
-        <EsqueciMinhaSenha/>
+        <Entrar/>
+
     </div>
   )
 }
