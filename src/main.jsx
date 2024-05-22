@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
+import './index.css';
 import Entrar from './pages/Entrar/Index.jsx';
 import Cadastrar from './pages/Cadastrar/Index.jsx';
 import EsqueciMinhaSenha from './pages/EsqueciMinhaSenha/Index.jsx';
 import ModificarSenha from './pages/ModificarSenha/Index.jsx';
-import './index.css';
+import Boletos from './pages/boletos/Index.jsx';
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
   {
     path: "/modificar-senha",
     element: <ModificarSenha/>
+  },
+  {
+    path: "/boletos",
+    element: <Boletos/>
   }
 ]);
 
