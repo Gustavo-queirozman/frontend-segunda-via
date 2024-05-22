@@ -3,14 +3,14 @@ import axios from 'axios';
 import qs from 'qs';
 import Button from '../../components/Button/Index';
 import Header from '../../components/Header/Index';
-import { Redirect, redirect } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom'; 
 
 function Entrar() {
   const [cnp, setCnp] = useState('');
   const [password, setPassword] = useState('');
   const [response, setResponse] = useState(null);
   const [error, setError] = useState(null);
-  const redirect = Redirect();  // Initialize useNavigate
+  const navigate = useNavigate();  // Initialize useNavigate
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,7 +34,11 @@ function Entrar() {
     try {
       const response = await axios.request(config);
       setResponse(response.data);
-      redirect('/boletos');
+      
+      const token = response.data.data.token
+      localStorage.setItem('token',token)
+
+      navigate('/boletos');  // Redirect to cadastrar route after successful login
     } catch (error) {
       setError(error.message);
     }

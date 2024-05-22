@@ -9,6 +9,10 @@ import './index.css';
 
 const router = createBrowserRouter([
   {
+    path: "/",
+    element: <Entrar />
+  },
+  {
     path: "/entrar",
     element: <Entrar />
   },
@@ -23,7 +27,11 @@ const router = createBrowserRouter([
   {
     path: "/modificar-senha",
     element: <ModificarSenha/>
-  }
+  },
+  {
+    path: "/boletos",
+    element: <Boletos />
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
