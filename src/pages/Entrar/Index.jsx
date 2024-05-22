@@ -22,16 +22,16 @@ function Entrar() {
       method: 'post',
       maxBodyLength: Infinity,
       url: 'http://192.168.0.159:80/api/login',
-      headers: { 
-        'Content-Type': 'application/x-www-form-urlencoded', 
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
         'Accept-Encoding': 'application/json'
       },
-      data : data
+      data: data
     };
 
     try {
       const response = await axios.request(config);
-      setResponse(response.data);
+      setResponse(response.data.data.token);
     } catch (error) {
       setError(error.message);
     }
@@ -43,7 +43,7 @@ function Entrar() {
         <Header />
         <div className="mt-2">
           <form onSubmit={handleSubmit}>
-          <div className="mt-8 mx-24">
+            <div className="mt-8 mx-24">
               <label className="text-cinza text-sm">Cnp:</label>
               <input
                 type="text"
@@ -77,7 +77,16 @@ function Entrar() {
                 Entrar
               </button>
             </div>
+
+            <div className='text-center m-5'>
+              <p>
+                <a href="/esqueci-minha-senha">Esqueci minha senha</a>
+                <span> | </span>
+                <a href="/cadastrar" className='text-green-800 font-bold'>Cadastrar</a>
+              </p>
+            </div>
           </form>
+
           {response && <div>Response: {JSON.stringify(response)}</div>}
           {error && <div>Error: {error}</div>}
         </div>

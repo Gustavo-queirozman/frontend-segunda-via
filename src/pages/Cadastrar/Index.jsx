@@ -115,6 +115,13 @@ function Cadastrar() {
                 Entrar
               </button>
             </div>
+
+            <div className='text-center m-5'>
+              <p>
+                <a>Já possui uma conta? </a>
+                <a href="/entrar" className='text-green-800 font-bold'>Entrar</a>
+              </p>
+            </div>
           </form>
         </div>
       </div>
