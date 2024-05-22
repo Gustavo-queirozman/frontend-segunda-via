@@ -27,11 +27,7 @@ const router = createBrowserRouter([
   {
     path: "/modificar-senha",
     element: <ModificarSenha/>
-  },
-  {
-    path: "/boletos",
-    element: <Boletos />
-  },
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
