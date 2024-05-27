@@ -36,7 +36,9 @@ function Entrar() {
       setResponse(response.data);
       
       const token = response.data.data.token
-      localStorage.setItem('token',token)
+      const user = response.data.data.data_user
+      localStorage.setItem('token',token);
+      localStorage.setItem('user', user);
 
       navigate('/boletos');  // Redirect to cadastrar route after successful login
     } catch (error) {

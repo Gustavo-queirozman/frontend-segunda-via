@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Header from '../../components/Header/Index';
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Cadastrar() {
   const [name, setName] = useState('');
@@ -10,6 +11,7 @@ function Cadastrar() {
   const [c_password, setConfirmarSenha] = useState('');
   const [response, setResponse] = useState(null); // Estado para resposta do servidor
   const [error, setError] = useState(null); // Estado para erro]
+  const navigate = useNavigate();  // Initialize useNavigate
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,7 +21,8 @@ function Cadastrar() {
       maxBodyLength: Infinity,
       url: 'http://192.168.0.159:80/api/register',
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Accept-Encoding': 'application/json'
       },
       data: {
         'name': name,
@@ -30,13 +33,19 @@ function Cadastrar() {
       }
     };
 
-    axios.request(config)
-    .then((response) => {
-      console.log(JSON.stringify(response.data));
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+    try {
+      const response = await axios.request(config);
+      setResponse(response.data);
+      
+      const token = response.data.data.token
+      const user = response.data.data.data_user
+      localStorage.setItem('token',token);
+      localStorage.setItem('user', user);
+
+      navigate('/boletos');  // Redirect to cadastrar route after successful login
+    } catch (error) {
+      setError(error.message);
+    }
   }
 
 
@@ -112,7 +121,7 @@ function Cadastrar() {
 
             <div className="mt-11 mx-24">
               <button className="bg-green-800 text-white px-3 appearance-none block min-w-full py-4 leading-tight rounded-full transition ease-in-out delay-150 bg-secundaria-500 hover:-translate-y-1 hover:scale-100 hover:bg-primaria duration-300">
-                Entrar
+                Cadastrar
               </button>
             </div>
 
