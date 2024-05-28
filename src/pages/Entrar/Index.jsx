@@ -37,6 +37,7 @@ function Entrar() {
       
       const token = response.data.data.token
       const user = response.data.data.data_user
+      localStorage.clear();
       localStorage.setItem('token',token);
       localStorage.setItem('user', user);
 
