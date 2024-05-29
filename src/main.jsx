@@ -10,6 +10,7 @@ import Boletos from './pages/boletos/Index.jsx';
 import Boleto from './pages/boleto/Index.jsx';
 import Documento from './pages/Documento/Index.jsx';
 import Detalhe from './pages/Detalhe/Index.jsx';
+import Demonstrativo from './pages/Demonstrativo/Index.jsx';
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
   {
     path: "/detalhe",
     element: <Detalhe/>
+  },
+  {
+    path: "/demonstrativo",
+    element: <Demonstrativo/>
   }
 ]);
 
