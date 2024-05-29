@@ -8,6 +8,7 @@ import EsqueciMinhaSenha from './pages/EsqueciMinhaSenha/Index.jsx';
 import ModificarSenha from './pages/ModificarSenha/Index.jsx';
 import Boletos from './pages/boletos/Index.jsx';
 import Boleto from './pages/boleto/Index.jsx';
+import Documento from './pages/Documento/Index.jsx';
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
   {
     path: "/boleto",
     element: <Boleto/>
+  },
+  {
+    path: "/documento",
+    element: <Documento/>
   }
 ]);
 
