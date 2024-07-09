@@ -36,7 +36,7 @@ const router = createBrowserRouter([
     element: <Boletos/>
   },
   {
-    path: "/boleto",
+    path: "/boleto/:id",
     element: <Boleto/>
   }
 ]);

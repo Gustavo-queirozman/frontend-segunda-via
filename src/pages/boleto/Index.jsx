@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from "react-router-dom";
 import axios from 'axios';
 import qs from 'qs';
 
 function Boleto() {
+  const { id } = useParams(); // Pega o autoId da URL
   const [response, setResponse] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       const token = 'Bearer ' + localStorage.getItem('token');
-      const user = localStorage.getItem('user');
+      const user = JSON.parse(localStorage.getItem('user'));
       const cnp = user.cnp;
-      const autoId = localStorage.getItem('autoId');
 
       let config = {
         method: 'post',
@@ -23,7 +24,7 @@ function Boleto() {
           'Authorization': token
         },
         data: qs.stringify({
-          'autoId': autoId,
+          'autoId': id,
           'cnp': cnp
         })
       };
@@ -37,12 +38,16 @@ function Boleto() {
     };
 
     fetchData();
-  }, []);
+  }, [id]);
 
   return (
     <div>
       {response ? (
-        <div dangerouslySetInnerHTML={{ __html: response }} />
+        response.message ? (
+          <p>{response.message}</p> // Exibe a mensagem se existir
+        ) : (
+          <div dangerouslySetInnerHTML={{ __html: response }} />
+        )
       ) : (
         <div>{error ? <p>Error: {error}</p> : <p>Loading...</p>}</div>
       )}
