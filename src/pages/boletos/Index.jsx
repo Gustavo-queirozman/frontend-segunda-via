@@ -12,24 +12,21 @@ function Boletos() {
                 const token = 'Bearer ' + localStorage.getItem('token');
                 const user = JSON.parse(localStorage.getItem('user'));
                 const cnp = user.cnp;
-
+                
                 if (!token || !user || !cnp) {
                     throw new Error('Token, user, or cnp is missing from localStorage');
                 }
-
-
-
 
                 const response = await axios({
                     method: 'post',
                     url: 'http://192.168.0.159:80/api/boleto/listar',
                     headers: { 'Content-type': 'application/x-www-form-urlencoded', 'Authorization': token },
                     data: {
-                        'cnp': '33631641000101'
+                        'cnp': `${cnp}`
                     }
                 });
 
-
+                console.log(response)
                 if (response.data.message) {
                     setData({ message: response.data.message });
                 } else if (response.data.boletos) {
@@ -60,11 +57,15 @@ function Boletos() {
                     {data.boletos.map((boleto, index) => (
                         <li key={index}>
                             <p>Boleto ID: {boleto.autoId}</p>
-                            <p>Data de Vencimento: {boleto.dueDate}</p>
-                            <p>Valor: {boleto.amount}</p>
-                            {/* Adicione outros campos conforme necessário */}
+                            <p>Data de Vencimento: {boleto.vencimento}</p>
+                            <p>Valor: R$ {boleto.saldo.slice(0, -2)}</p>
+                            <a href={`http://localhost:5173/documento/${boleto.autoId}`}>Documento </a>
+                            <a href={`http://localhost:5173/demonstrativo/${boleto.autoId}`}>Demonstrativo </a>
+                            <a href={`http://localhost:5173/boleto/${boleto.autoId}`}>Boleto</a>
+                            <br /><br />
                         </li>
                     ))}
+
                 </ul>
             )}
         </div>
