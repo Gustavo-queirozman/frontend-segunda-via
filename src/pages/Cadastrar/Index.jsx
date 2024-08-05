@@ -19,7 +19,7 @@ function Cadastrar() {
     let config = {
       method: 'POST',
       maxBodyLength: Infinity,
-      url: 'http://192.168.0.159:80/api/register',
+      url: 'http://192.168.0.159:8080/api/register',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         'Accept-Encoding': 'application/json'

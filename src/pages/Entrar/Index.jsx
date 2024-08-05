@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import qs from 'qs';
 import Button from '../../components/Button/Index';
 import Header from '../../components/Header/Index';
 import { useNavigate } from 'react-router-dom'; 
@@ -10,42 +9,36 @@ function Entrar() {
   const [password, setPassword] = useState('');
   const [response, setResponse] = useState(null);
   const [error, setError] = useState(null);
-  const navigate = useNavigate();  // Initialize useNavigate
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    let data = qs.stringify({
-      'cnp': cnp,
-      'password': password
-    });
-
-    let config = {
-      method: 'post',
-      maxBodyLength: Infinity,
-      url: 'http://192.168.0.159:80/api/login',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Accept-Encoding': 'application/json'
-      },
-      data: data
-    };
-
     try {
-      const response = await axios.request(config);
-      setResponse(response.data);
-      
-      const token = response.data.data.token
-      const user = response.data.data.data_user
-      localStorage.clear();
-      localStorage.setItem('token',token);
-      localStorage.setItem('user', user);
+      const resposta = await fetch("http://192.168.0.159:8080/api/login", {
+        method: "POST",
+        body: JSON.stringify({ cnp: cnp, password: password }),
+        headers: { "Content-Type": "application/json" }
+      });
 
-      navigate('/boletos');  // Redirect to cadastrar route after successful login
+      const resultado = await resposta.json();
+
+      if (resposta.ok) {
+        setResponse(resultado.data);
+        const token = resultado.data.token;
+        const user = resultado.data.data_user;
+        localStorage.clear();
+        localStorage.setItem('token', token);
+        localStorage.setItem('user', JSON.stringify(user));
+        navigate('/boletos');
+      } else {
+        setError(resultado.message || 'Erro ao realizar login.');
+      }
     } catch (error) {
       setError(error.message);
     }
   };
+
 
   return (
     <div className="min-h-screen bg-white flex">
